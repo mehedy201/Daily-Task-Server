@@ -19,18 +19,18 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run(){
     try{
         await client.connect();
-        const DailyTaskAdded = client.db('DailyTask').collection('new_task');
+        const DailyTaskAdded = client.db('DailyTask').collection('new-task');
         
 
 // #######-----------------------------  insert Daily Task Data Start  -----------------------------####### //
-    app.post('/new_task', async(req, res) => {
+    app.post('/new-task', async(req, res) => {
         const task = req.body;
         const result = await DailyTaskAdded.insertOne(task);
         res.send({success: true, result});
     })
 
 // #######-----------------------------  Get Daily Task Data Start  -----------------------------####### //
-app.get('/new_task', async(req, res) => {
+app.get('/new-task', async(req, res) => {
     const query ={};
     const cursor = DailyTaskAdded.find(query);
     const allTask = await cursor.toArray();
@@ -38,7 +38,7 @@ app.get('/new_task', async(req, res) => {
   });
 
 // #######-----------------------------  Get Daily Task Data singleOne  -----------------------------####### //
-    app.get('/new_task/:id', async(req, res) =>{
+    app.get('/new-task/:id', async(req, res) =>{
         const id = req.params.id;
         const query = {_id: ObjectId(id)};
         const task = await DailyTaskAdded.findOne(query);
@@ -46,7 +46,7 @@ app.get('/new_task', async(req, res) => {
       })
 
 // #######-----------------------------  Get Daily Task Data End  -----------------------------####### //
-app.put('/new_task/:id', async (req, res) => {
+app.put('/new-task/:id', async (req, res) => {
     const id = req.params.id;
     const new_task = req.body;
     const filter = {_id: ObjectId(id)};
@@ -59,7 +59,7 @@ app.put('/new_task/:id', async (req, res) => {
 })
 
 // #######-----------------------------  Completed Task Deleted API  -----------------------------####### //
-app.delete('/new_task/:id', async(req, res) => {
+app.delete('/new-task/:id', async(req, res) => {
     const id = req.params.id;
     const query = {_id: ObjectId(id)};
     const result = await DailyTaskAdded.deleteOne(query);
