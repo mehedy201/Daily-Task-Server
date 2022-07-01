@@ -32,7 +32,14 @@ async function run(){
 // #######-----------------------------  insert Daily Task Data End  -----------------------------####### //
 
 
-
+// #######-----------------------------  Get Daily Task Data Start  -----------------------------####### //
+app.get('/new_task', async(req, res) => {
+    const query ={};
+    const cursor = DailyTaskAdded.find(query);
+    const allTask = await cursor.toArray();
+    res.send(allTask);
+  });
+// #######-----------------------------  Get Daily Task Data End  -----------------------------####### //
 
 
         
